@@ -8,8 +8,11 @@ Replace this with more appropriate tests for your application.
 from django.test import TestCase
 
 class PollsViewsTestCase(TestCase):
-    def test_index(self):
+    def test_login(self):
         resp = self.client.get('http://ssdiprojectfall2015.pythonanywhere.com/auth/login/')
+        self.assertEqual(resp.status_code, 200)
+    def test_home(self):
+        resp = self.client.get('http://ssdiprojectfall2015.pythonanywhere.com/auth/')
         self.assertEqual(resp.status_code, 200)
 
 

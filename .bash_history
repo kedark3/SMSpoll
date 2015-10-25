@@ -73,3 +73,57 @@ sudo python manage.py test login
 sudo python manage.py test
 sudo su
 exit
+sudo su
+su
+su sudo
+su python manage.py syncdb
+sudo python manage.py syncdb
+python manage.py syncdb
+cd SMSpoll
+python manage.py syncdb
+python manage.py test
+./tests.py
+cd login && ./tests.py
+./tests.py
+sudo ./tests.py
+python tests.py
+python manage.py test login
+cd ..
+python manage.py test login
+python manage.py test
+./manage.py test
+python manage.py test login
+python manage.py test 
+git add -A
+cd ..
+git remote add origin https://github.com/kedark3/SMSpoll.git
+git init
+git add README.md
+cd .git
+git add README.md
+cd..
+cd ..
+git commit -m "first commit"
+git config --global user.email "kedar.kulkarni0@gmail.com"
+git config --global user.name "kedark3"
+git commit -m "first commit"
+git Add - A
+git Add -A
+git remote add origin https://github.com/kedark3/SMSpoll.git
+git push -u origin master
+echo # SMSpoll >> README.md
+git add README.md
+ls
+cd SMSpoll
+ls
+ls -a
+cd
+ls -a
+git commit -m "first commit"
+git add -a
+git add -A
+git commit -m "first commit"
+git remote add origin https://github.com/kedark3/SMSpoll.git
+git push -u origin master
+ls
+cd SMSpoll
