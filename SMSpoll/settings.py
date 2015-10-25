@@ -18,10 +18,14 @@ DATABASES = {
         'PASSWORD': 'smspoll',                  # Not used with sqlite3.
         'HOST': 'mysql.server',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+    },
+    'default': {
+        'ENGINE': 'sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'test',                      # Or path to database file if using sqlite3.
     }
 }
-if 'test' in sys.argv or 'test_coverage' in sys.argv: #Covers regular testing and django-coverage
-    DATABASES['default']['ENGINE'] = 'sqlite3'
+#if 'test' in sys.argv or 'test_coverage' in sys.argv: #Covers regular testing and django-coverage
+ #   DATABASES['default']['ENGINE'] = 'sqlite3'
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.3/ref/settings/#allowed-hosts
