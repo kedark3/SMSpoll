@@ -1,5 +1,4 @@
 // Easy Responsive Tabs Plugin
-// Author: Samson.Onna <Email : samson3d@gmail.com>
 (function ($) {
     $.fn.extend({
         easyResponsiveTabs: function (options) {
@@ -10,7 +9,7 @@
                 fit: true
             }
             //Variables
-            var options = $.extend(defaults, options);            
+            var options = $.extend(defaults, options);
             var opt = options, jtype = opt.type, jfit = opt.fit, jwidth = opt.width, vtabs = 'vertical', accord = 'accordion';
 
             //Main function
@@ -59,7 +58,7 @@
                     $tabItem.attr('aria-controls', 'tab_item-' + (count));
                     $tabItem.attr('role', 'tab');
 
-                    //First active tab                   
+                    //First active tab
                     $respTabs.find('.resp-tab-item').first().addClass('resp-tab-active');
                     $respTabs.find('.resp-accordion').first().addClass('resp-tab-active');
                     $respTabs.find('.resp-tab-content').first().addClass('resp-tab-content-active').attr('style', 'display:block');
@@ -99,7 +98,7 @@
                             $respTabs.find('.resp-tab-content[aria-labelledby = ' + $tabAria + ']').addClass('resp-tab-content-active').attr('style', 'display:block');
                         }
                     });
-                    //Window resize function                   
+                    //Window resize function
                     $(window).resize(function () {
                         $respTabs.find('.resp-accordion-closed').removeAttr('style');
                     });
