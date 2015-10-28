@@ -18,11 +18,19 @@ class PollsViewsTestCase(TestCase):
         self.assertEqual(resp.status_code, 200)
 
 
-    def test_signup(self):
+    def test_signup_valid(self):
         c = Client(HTTP_USER_AGENT='Mozilla/5.0')
         response=c.post('http://ssdiprojectfall2015.pythonanywhere.com/auth/signup/', {'fname': 'fred','lname':'flinstone','email':'fred@gmail.com', 'pswd': 'secret','cnfm_pswd':'secret'})
 
+        self.assertEqual(response.status_code, 302)
+
+    def test_signup_invalid(self):
+        c = Client(HTTP_USER_AGENT='Mozilla/5.0')
+        response=c.post('http://ssdiprojectfall2015.pythonanywhere.com/auth/signup/', {'fname': 'fred','lname':'flinstone','email':'fred@gmail.com', 'pswd': 'secresst','cnfm_pswd':'secret'})
+
         self.assertEqual(response.status_code, 200)
+
+
     def test_login_check_valid(self):
         instance = InstReg.objects.create(fname="kedar",lname="Kulkarni",email="kedar.kulkarni0@gmail.com",password="secret")
         c = Client(HTTP_USER_AGENT='Mozilla/5.0')

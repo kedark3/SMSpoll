@@ -22,6 +22,7 @@ def home(request):
     return HttpResponse(t.render(c))
 
 def login(request):
+    global error
     code = read('/home/ssdiprojectfall2015/SMSpoll/templates/login.html')
     t= Template(code)
     c = Context()
@@ -45,6 +46,7 @@ def login_check(request):
 
 
 def signup(request):
+    global error
     fname= request.POST['fname']
     lname= request.POST['lname']
     email= request.POST['email']
@@ -55,6 +57,7 @@ def signup(request):
         i = InstReg(fname,lname,email,password)
         i.save()
         error="Signed up Successfully,You may login now!!"
+        return HttpResponseRedirect('/auth/login')
     else:
         error="Password and Confirm password didn't match!!"
     code = read('/home/ssdiprojectfall2015/SMSpoll/templates/login.html')
