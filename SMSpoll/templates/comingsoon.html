@@ -18,6 +18,11 @@
 <body>
 
 <h1>We're coming soon!Stay Tuned ;)</h1>
+<<table>
 
+        {% for n in numbers %}
+        <thead><tr><th>Number:{{ n.from_ }}</th><th>Body:{{ n.body }}</th><th>Date:{{ n.date_sent }}</th></tr></thead>
+        {% endfor %}
+</table>
 </body>
 </html>

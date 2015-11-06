@@ -8,11 +8,15 @@ ADMINS = (
     #('Kedar, Praveen, Gazal', 'ssdiprojectfall2015@gmail.com'),
 )
 
+
+TWILIO_ACCOUNT_SID = "AC5d22427eb1a348f92d96e38ac7f77b6f"
+TWILIO_AUTH_TOKEN = "de92cc787190562f371eebf5971d0a2a"
+
 MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'ssdiprojectfall2$default',                      # Or path to database file if using sqlite3.
         'USER': 'ssdiprojectfall2',                      # Not used with sqlite3.
         'PASSWORD': 'smspoll',                  # Not used with sqlite3.
@@ -133,7 +137,8 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'SMSpoll.login',
 )
-
+# Close the session when user closes the browser
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
 # the site admins on every HTTP 500 error.
@@ -156,3 +161,11 @@ LOGGING = {
         },
     }
 }
+
+
+#Email related settings*********************************************
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_HOST_USER = "ssdiprojectfall2015@gmail.com"
+EMAIL_HOST_PASSWORD = 'hariniramaprasad'#'myADBMSproject'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True

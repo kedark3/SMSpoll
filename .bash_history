@@ -127,3 +127,12 @@ git remote add origin https://github.com/kedark3/SMSpoll.git
 git push -u origin master
 ls
 cd SMSpoll
+cd login
+python manage.py syncdb
+cd ..
+python manage.py syncdb
+pip install twilio
+pip install twilio --upgrade
+python
+mkvirtualenv --python=/usr/bin/python2.7 newtwilio
+pip install twilio

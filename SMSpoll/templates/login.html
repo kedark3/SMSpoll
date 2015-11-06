@@ -25,7 +25,7 @@
 						<ul class="resp-tabs-list">
 							<li class="resp-tab-item"><span><img src="/static/login/images/user.png" alt="" /> </span></li>
 							<li class="resp-tab-item"><span><img src="/static/login/images/register.png" alt=""/> </span></li>
-							<li class="resp-tab-item"><span><img src="/static/login/images/recover.png" alt=""/> </span></li>
+							<!--<li class="resp-tab-item"><span><img src="/static/login/images/recover.png" alt=""/> </span></li>-->
 							<li class="resp-tab-item"><span><img src="/static/login/images/password.png" alt=""/> </span></li>
 							<li class="resp-tab-item"><span><img src="/static/login/images/contact.png" alt=""/> </span></li>
 						</ul>
@@ -41,13 +41,14 @@
 													<div class="submit">
 											            <input type="submit" value="Login" formaction="/auth/login-check/">
 										            </div>
+										            	<div class="login-check">
+								 			 <label class="checkbox"><input type="checkbox" name="checkbox" checked="" value="1"><i> </i> Remember Me</label>
+								 		  </div>
 												</form>
 											</div>
 
 
-										<div class="login-check">
-								 			 <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i> </i> Remember Me</label>
-								 		  </div>
+
 								</div>
 							</div>
 							<span class="resp-arrow"></span><i class="icon_2"></i>
@@ -72,7 +73,7 @@
 								 		  </div>-->
 								</div>
 							</div>
-							<span class="resp-arrow"></span><i class="icon_3"></i>
+							<!--<span class="resp-arrow"></span><i class="icon_3"></i>
 							<div class="new_posts resp-tab-content">
 								<div class="contact-form2">
 											<div class="contact-text3"><h3>Recover ID</h3>
@@ -85,34 +86,36 @@
 											<input type="submit" value="Get Code">
 										</div>
 								</div>
-							</div>
+							</div>-->
 							<span class="resp-arrow"></span><i class="icon_4"></i>
 							<div class="new_posts resp-tab-content">
 								<div class="contact-form3">
 											<div class="contact-text4"><h3>Recover Password</h3>
-												<form>
-													<input type="text" class="user" value="Your Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Your Name';}">
-													<input type="text" class="email Address" value="Email Address" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email Address';}">
+												<form method="post" action="/auth/recoverpswd/">
+													<input type="text" class="user" value="Your Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Your Name';}" name="pname">
+													<input type="text" class="email Address" value="Email Address" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email Address';}" name="pmail">
+										            <div class="submit">
+											            <input type="submit" value="Recover">
+										            </div>
 												</form>
 											</div>
-										<div class="submit">
-											<input type="submit" value="Recover">
-										</div>
+
 								</div>
 							</div>
 							  <span class="resp-arrow"></span><i class="icon_4"></i>
 							  <div class="new_posts resp-tab-content">
 								<div class="contact-form4">
 											<div class="contact-text5"><h3>Contact Us</h3>
-												<form>
-													<input type="text" class="user" value="Your Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Your Name';}">
-													<input type="text" class="email Address" value="Email Address" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email Address';}">
-												    <textarea class="text" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Your Message';}"> Your Message </textarea>
+												<form action="/auth/contact-us/" method="post">
+													<input type="text" name="cname" class="user" value="Your Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Your Name';}">
+													<input type="text" name="cmail" class="email Address" value="Email Address" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email Address';}">
+												    <textarea name="message" class="text" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Your Message';}"> Your Message </textarea>
+											        <div class="submit5">
+            											<input type="submit" value="Send">
+										            </div>
 												</form>
 											</div>
-										<div class="submit5">
-											<input type="submit" value="Send">
-										</div>
+
 								</div>
 						</div>
 						<div class="clear"></div>

@@ -19,14 +19,20 @@ class Course(models.Model):
     course_name= models.CharField(max_length =50)
 
 class InstCourse(models.Model):
+    def __str__(self):              # __unicode__ on Python 2
+        return str(self.crn)
     crn = models.IntegerField(primary_key=True)
     c_id= models.ForeignKey(Course)
     email = models.ForeignKey(InstReg)
 
 class StudReg(models.Model):
-    s_id = models.IntegerField(primary_key=True)
-    phone_no = models.IntegerField(max_length = 10)
+    def __str__(self):              # __unicode__ on Python 2
+        return str(self.s_id) + str(self.crn)
+    s_id = models.IntegerField()
+    phone_no = models.CharField(max_length = 20)
     crn = models.ForeignKey(InstCourse, related_name = 'InstCourse')
+    class Meta:
+        unique_together = (("s_id","phone_no", "crn"),)
 
 
 admin.site.register(InstReg)
