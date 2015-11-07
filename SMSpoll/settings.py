@@ -29,7 +29,7 @@ DATABASES = {
     #}
 }
 if 'test' in sys.argv or 'test_coverage' in sys.argv: #Covers regular testing and django-coverage
-    DATABASES['default']['ENGINE'] = 'sqlite3'
+    DATABASES['default']['ENGINE'] = 'django.db.backends.sqlite3'
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.3/ref/settings/#allowed-hosts

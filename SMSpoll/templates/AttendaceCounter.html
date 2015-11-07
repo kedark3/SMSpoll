@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Attendance String</title>
+
+<link href="/static/login/css/style.css" rel="stylesheet" type="text/css" />
+<link href="/static/login/css/bootstrap.css" rel="stylesheet">
+
+<!--webfonts-->
+<link href="//fonts.googleapis.com/css?family=Raleway:400,200,300,500,600,800,700,900" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=Philosopher:400,400italic,700,700italic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet" type="text/css">
+<!--//webfonts-->
+<!--for Timer-->
+<link rel="stylesheet" href="/static/flipclock/flipclock.css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="/static/flipclock/flipclock.js"></script>
+<script>
+var clock;
+
+		$(document).ready(function() {
+
+			clock = $('.clock').FlipClock(20, {
+		        clockFace: 'MinuteCounter',
+		        countdown: true,
+		        callbacks: {
+		        	stop: function() {
+		        		window.location.replace("http://ssdiprojectfall2015.pythonanywhere.com/auth/show-attendance")
+		        	}
+		        }
+		    });
+
+		});
+</script>
+
+</head>
+<body>
+<h1>Today's Attendance String</h1>
+
+<h1>{{string}}</h1>
+
+<h2>Countdown Clock</h2>
+<div class="clock" style="margin:2em;"></div>
+	<div class="message"></div>
+
+
+<!--start-copyright-->
+   	<div class="copy-right">
+		<p>&copy; 2015 SMS Based Polling System/ All Rights Reserved | Design by <a href="http://kedarkulkarni.in/">Kedar Kulkarni</a>,Gazal Chawla, Praveen Surenani</p>
+</div>
+	<!--//end-copyright-->
+</body>
+</html>

@@ -6,7 +6,7 @@ Replace this with more appropriate tests for your application.
 """
 
 from django.test import TestCase,Client
-from models import InstReg
+from models import InstReg,StudReg,Course,InstCourse
 
 
 class PollsViewsTestCase(TestCase):
@@ -14,7 +14,7 @@ class PollsViewsTestCase(TestCase):
         resp = self.client.get('http://ssdiprojectfall2015.pythonanywhere.com/auth/login/')
         self.assertEqual(resp.status_code, 200)
     def test_home(self):
-        resp = self.client.get('http://ssdiprojectfall2015.pythonanywhere.com/auth/')
+        resp = self.client.post('http://ssdiprojectfall2015.pythonanywhere.com/auth/',{'email2':'kkulkar3@uncc.edu'})
         self.assertEqual(resp.status_code, 200)
 
 
@@ -43,3 +43,13 @@ class PollsViewsTestCase(TestCase):
         response=c.post('http://ssdiprojectfall2015.pythonanywhere.com/auth/login-check/', {'email2':instance.email, 'pswd2': 'abcd'})
 
         self.assertEqual(response.status_code, 200) #Check this later again+++++++++++++++++++++++++++++++++++++++++++++++++++=
+
+
+    def test_studreg_valid(self):
+        c = Client(HTTP_USER_AGENT='Mozilla/5.0')
+        instReg=InstReg.objects.create(fname="kedar",lname="Kulkarni",email="kedar.kulkarni0@gmail.com",password="secret")
+        course= Course.objects.create(c_id=25174,course_name="SPL")
+        instCourse= InstCourse.objects.create(crn=1001,c_id=25174,email=instReg.email)
+        response=c.post('http://ssdiprojectfall2015.pythonanywhere.com/auth/student-register/', {'From': '+17049048709','Body':'800893339 1001'})
+
+        self.assertEqual(response.status_code, 200)

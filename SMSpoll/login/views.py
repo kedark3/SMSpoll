@@ -1,13 +1,15 @@
 # Create your views here.
 from django.http import HttpResponse,HttpResponseRedirect
-from django.template import Template, Context,RequestContext
-from django.shortcuts import render_to_response
+from django.template import Template, Context
 from file_read import read
 import MySQLdb as msdb
-from models import InstReg,StudReg,InstCourse
+from models import InstReg,StudReg,InstCourse,Course
 from twilio.rest import TwilioRestClient
 from django.core.mail import send_mail
-
+import random,string
+from datetime import datetime
+from django.utils import timezone
+from dateutil import parser
 #connecting to twilio account
 import os
 from urlparse import urlparse
@@ -25,7 +27,16 @@ AUTH_TOKEN = "de92cc787190562f371eebf5971d0a2a"
 client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
 
 
+class CourseList(object):
+    def __init__(self,crn,c_id,c_name):
+        self.crn=crn
+        self.c_id=c_id
+        self.c_name=c_name
 
+class StudList(object):
+    def __init__(self,s_id,phone):
+        self.s_id=s_id
+        self.phone=phone
 
 def connect():
     try:
@@ -39,15 +50,26 @@ def connect():
 def home(request):
     #try:
     mail=request.session['email2']
-    messages = client.messages.list()
+    conn=connect()
+    cur=conn.cursor()
+    cur.execute("select i.crn,c.c_id,c.course_name from login_instcourse as i, login_course as c  where i.c_id_id=c.id and email_id='%s'"%mail)
+    results=[]
+    for row in cur.fetchall():
+        results.append(CourseList(row[0],row[1],row[2]))
+    conn.close()
+    code = read('/home/ssdiprojectfall2015/SMSpoll/templates/InstructorHome.html')
+    t= Template(code)
+    c = Context({'courses':results})
+    return HttpResponse(t.render(c))
+
+
+
+    '''messages = client.messages.list()
     numbers=[]
     for m in messages:
 	    if m.status == "received":
-		    numbers.append(m)
-    code = read('/home/ssdiprojectfall2015/SMSpoll/templates/comingsoon.html')
-    t= Template(code)
-    c = Context({'numbers':numbers})
-    return HttpResponse(t.render(c))
+		    numbers.append(m)'''
+
     #except Exception as e:
     #    error='Please login first!'
     #    code = read('/home/ssdiprojectfall2015/SMSpoll/templates/login.html')
@@ -144,3 +166,47 @@ def student_reg(request):
         #r.message('Registration error, format should be your 800 ID and CRN. E.g. 800891239 25145.')
         sid=0
     return HttpResponse(r.toxml(), content_type='text/xml')
+
+
+def after_course(request):
+    conn=connect()
+    cur=conn.cursor()
+    crn=request.GET['crn']
+    cid=request.GET['c-id']
+    course_details=list(Course.objects.filter(c_id=cid))
+    cur.execute("select s_id, phone_no from login_studreg as s, login_instcourse as c where s.crn_id=c.crn and crn="+crn)
+    students=[]
+    for row in cur.fetchall():
+        students.append(StudList(row[0],row[1]))
+    conn.close()
+    code = read('/home/ssdiprojectfall2015/SMSpoll/templates/AfterCourseSelection.html')
+    t= Template(code)
+    c = Context({'course':course_details,'students':students,'count':len(students)})
+    return HttpResponse(t.render(c))
+
+
+def attendace_string(request):
+    random_string=''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
+    request.session['random_string']=random_string
+    request.session['time1']= datetime.now().replace(microsecond=0)
+    code = read('/home/ssdiprojectfall2015/SMSpoll/templates/AttendaceCounter.html')
+    t= Template(code)
+    c = Context({'string':random_string})
+    return HttpResponse(t.render(c))
+
+def show_attendance(request):
+    request.session['time2']= datetime.now(timezone.utc).replace(microsecond=0)
+    messages = client.messages.list()
+    numbers=[]
+    for m in messages:
+	    if m.status == "received" and ((request.session['time2']-parser.parse(m.date_sent)).seconds)<=90:
+		    numbers.append(m)
+    code = read('/home/ssdiprojectfall2015/SMSpoll/templates/comingsoon.html')
+    t= Template(code)
+    c = Context({'numbers':numbers})
+    return HttpResponse(t.render(c))
+
+    #,'diff':str((request.session['time2']-parser.parse(messages[0].date_sent)).seconds)+'.....'+str(messages[0].date_sent)+'...'+str(request.session['time2']) })
+    '''naive=parser.parse(messages[0].date_sent).replace(tzinfo=None)
+    return HttpResponse(request.session['random_string']+str((request.session['time2']-parser.parse(messages[0].date_sent)).seconds)
+    +str(request.session['time2'])+str(parser.parse(messages[0].date_sent)))'''

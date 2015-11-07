@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Instructor Home</title>
+
+<link href="/static/login/css/style.css" rel="stylesheet" type="text/css" />
+<link href="/static/login/css/bootstrap.css" rel="stylesheet">
+
+<!--webfonts-->
+<link href="//fonts.googleapis.com/css?family=Raleway:400,200,300,500,600,800,700,900" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=Philosopher:400,400italic,700,700italic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet" type="text/css">
+<!--//webfonts-->
+</head>
+<body>
+	<h1>Instructor Home</h1>
+<div class="infom">
+<div class="datagrid">
+<table>
+<thead><tr><th>CRN</th><th>Course ID</th><th>Course Name</th></tr></thead>
+{% for n in courses %}
+<tr><td><a href="/auth/after-course/?crn={{ n.crn }}&&c-id={{n.c_id}}">{{n.crn}}</a></td><td>{{n.c_id}}</td><td> {{n.c_name}}</td></tr>
+{% endfor %}
+</table>
+</div>
+</div>
+<div class="copy-right"><button type="button">Add/Remove Course!</button></div>
+<!--start-copyright-->
+   	<div class="copy-right">
+		<p>&copy; 2015 SMS Based Polling System/ All Rights Reserved | Design by <a href="http://kedarkulkarni.in/">Kedar Kulkarni</a>,Gazal Chawla, Praveen Surenani</p>
+</div>
+	<!--//end-copyright-->
+</body>
+</html>

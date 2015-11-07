@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Course Details</title>
+<link href="/static/login/css/style.css" rel='stylesheet' type='text/css' />
+<link href="/static/login/css/bootstrap.css" rel="stylesheet">
+<style type="text/css">
+@import url("sample.css");
+.tile_div a {
+    display: block;
+    float: left;
+    height: 50px;
+    width: 200px;
+	margin-top: 10px;
+    margin-right: 5px;
+	margin-left:10px;
+    background-image: url(./images/button_left.png);
+    background-color: #ccc;
+    text-align: center;
+    line-height: 50px;
+    text-decoration: none;
+}
+.title_div a.last {
+    margin-right: 0;
+}
+
+.clear {
+    clear: both;
+}
+
+.myclass {
+        height: 200px;
+		width:300px;
+		margin-top:20px;
+		margin-left:50px;
+        position: relative;
+        border: 2px solid #cdcdcd;
+        border-color: rgba(0,0,0,.14);
+        background-color: AliceBlue ;   ;
+        font-size: 14px;
+    }
+
+</style>
+<link href='//fonts.googleapis.com/css?family=Raleway:400,200,300,500,600,800,700,900' rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=Philosopher:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+<!--//webfonts-->
+<script type="text/javascript" src="/static/login/js/jquery.min.js"></script>
+
+</head>
+<body>
+    <div class="tile_div">
+    <a href="/auth/attendance-string/">Get Attendence</a>
+    <a href="#">Create Test</a>
+    <a href="#" class="last">Conduct Test</a>
+
+    <!--<a href="#" class="last">View Registered Students</a>-->
+    <div class="clear"></div>
+</div>
+
+<div class="infom">
+<h1>Course Description</h1>
+<div class="datagrid">
+<table>
+<thead><tr><th>CRN</th><th>Course Name</th></tr></thead>
+{% for c in course %}
+<tr><td>{{c.c_id}}</td><td>{{c.course_name}}</td></tr>
+{% endfor %}
+</table>
+</div>
+<h1>Registered Students</h1>
+<div class="datagrid">
+<table>
+    <thead><tr><th>Student ID</th><th>Phone Number</th></tr></thead>
+{% for s in students %}
+<tr><td>{{s.s_id}}</td><td>{{s.phone}}</td></tr>
+
+{% endfor %}
+<thead><tr><th>Total Registered Students:</th><th>{{count}}</th></tr>
+
+</table>
+
+</div>
+</div>
+<!--start-copyright-->
+   	<div class="copy-right">
+		<p>&copy; 2015 SMS Based Polling System/ All Rights Reserved | Design by <a href="http://kedarkulkarni.in/">Kedar Kulkarni</a>,Gazal Chawla, Praveen Surenani</p>
+</div>
+	<!--//end-copyright-->
+
+</body>
+
+</html>
