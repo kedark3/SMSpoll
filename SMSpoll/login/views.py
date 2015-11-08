@@ -199,11 +199,22 @@ def show_attendance(request):
 
 
     numbers=list(set(numbers)) # remove duplicates
+
     code = read('/home/ssdiprojectfall2015/SMSpoll/templates/Attendance.html')
     t= Template(code)
     c = Context({'numbers':numbers})
     return HttpResponse(t.render(c))
 
+def download_attendance(request):
+    numbers=request.GET.getlist('numbers')
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="attendance'+str(datetime.now())+'.csv"'
+
+    writer = csv.writer(response)
+    for n in numbers:
+        writer.writerow([n])
+
+    return response
 
 #View for Add Classes
 def addrem(request):

@@ -27,12 +27,14 @@
 <h1>Present Students</h1>
 <div class="infom">
 <h2>Please select those entries which are to be excluded from the final attendance file(possible to select multiple)</h2>
-
-<select multiple >
+<form action="/auth/download-attendance/" action="get">
+<select multiple name="numbers">
     {% for n in numbers %}
-    <option> {{ n }}
+    <option value="{{n}}"> {{ n }}
     {% endfor %}
 </select>
+<input type="submit" value="Download"/>
+</form>
 </div>
     {{ diff }}
 </body>

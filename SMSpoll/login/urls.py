@@ -16,4 +16,5 @@ urlpatterns = patterns('',
     url(r'^add-remove/', 'SMSpoll.login.views.addrem'),
     url(r'^student-register/', 'SMSpoll.login.views.student_reg'),
     url(r'^show-attendance/', 'SMSpoll.login.views.show_attendance'),
+    url(r'^download-attendance/', 'SMSpoll.login.views.download_attendance'),
 )
