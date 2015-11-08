@@ -21,12 +21,13 @@ var clock;
 
 		$(document).ready(function() {
 
-			clock = $('.clock').FlipClock(20, {
+			clock = $('.clock').FlipClock({{count}}, {
 		        clockFace: 'MinuteCounter',
 		        countdown: true,
 		        callbacks: {
 		        	stop: function() {
 		        		window.location.replace("http://ssdiprojectfall2015.pythonanywhere.com/auth/show-attendance")
+
 		        	}
 		        }
 		    });
@@ -39,11 +40,11 @@ var clock;
 <h1>Today's Attendance String</h1>
 
 <h1>{{string}}</h1>
-
+<div class="infom">
 <h2>Countdown Clock</h2>
 <div class="clock" style="margin:2em;"></div>
 	<div class="message"></div>
-
+</div>
 
 <!--start-copyright-->
    	<div class="copy-right">

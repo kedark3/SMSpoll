@@ -44,12 +44,23 @@ class PollsViewsTestCase(TestCase):
 
         self.assertEqual(response.status_code, 200) #Check this later again+++++++++++++++++++++++++++++++++++++++++++++++++++=
 
+    def test_course_desc(self):
+        c = Client(HTTP_USER_AGENT='Mozilla/5.0')
+        response=c.get('http://ssdiprojectfall2015.pythonanywhere.com/auth/after-course/', {'crn':21546, 'c-id': 6150})
+        self.assertEqual(response.status_code, 200)
+
 
     def test_studreg_valid(self):
         c = Client(HTTP_USER_AGENT='Mozilla/5.0')
-        instReg=InstReg.objects.create(fname="kedar",lname="Kulkarni",email="kedar.kulkarni0@gmail.com",password="secret")
-        course= Course.objects.create(c_id=25174,course_name="SPL")
-        instCourse= InstCourse.objects.create(crn=1001,c_id=25174,email=instReg.email)
         response=c.post('http://ssdiprojectfall2015.pythonanywhere.com/auth/student-register/', {'From': '+17049048709','Body':'800893339 1001'})
+        self.assertEqual(response.status_code, 200)
 
+    def test_studreg_invalid(self):
+        c = Client(HTTP_USER_AGENT='Mozilla/5.0')
+        response=c.post('http://ssdiprojectfall2015.pythonanywhere.com/auth/student-register/', {'From': '+17049048709','Body':'800893339 ab 1001'})
+        self.assertEqual(response.status_code, 200)
+
+    def test_attendance_string(self):
+        c = Client(HTTP_USER_AGENT='Mozilla/5.0')
+        response=c.get('http://ssdiprojectfall2015.pythonanywhere.com/auth/attendance-string/', {'count':90})
         self.assertEqual(response.status_code, 200)

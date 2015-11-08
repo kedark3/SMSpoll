@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <title>Course Details</title>
-<link href="/static/login/css/style.css" rel='stylesheet' type='text/css' />
-<link href="/static/login/css/bootstrap.css" rel="stylesheet">
+<link href="/static/insthome/style.css" rel='stylesheet' type='text/css' />
+
 <style type="text/css">
 @import url("sample.css");
 .tile_div a {
@@ -22,7 +22,7 @@
     text-decoration: none;
 }
 .title_div a.last {
-    margin-right: 0;
+    margin-right: 50%;
 }
 
 .clear {
@@ -50,22 +50,27 @@
 
 </head>
 <body>
+
     <div class="tile_div">
-    <a href="/auth/attendance-string/">Get Attendence</a>
+    <form method="get" action="/auth/attendance-string/">
+    <h4>Please Enter Timer Upper limit (in Sec) for Attendance:</h4><input type="number" min="0" name="count" required/>
+    <input type="submit" value ="Get Attendance"/></form>
+
     <a href="#">Create Test</a>
     <a href="#" class="last">Conduct Test</a>
 
     <!--<a href="#" class="last">View Registered Students</a>-->
     <div class="clear"></div>
 </div>
-
 <div class="infom">
+<div class="table-title">
 <h1>Course Description</h1>
-<div class="datagrid">
+</div>
+<div>
 <table>
 <thead><tr><th>CRN</th><th>Course Name</th></tr></thead>
 {% for c in course %}
-<tr><td>{{c.c_id}}</td><td>{{c.course_name}}</td></tr>
+<tr><td class="text-left">{{c.c_id}}</td><td class="text-left"> {{c.course_name}}</td></tr>
 {% endfor %}
 </table>
 </div>
@@ -74,13 +79,14 @@
 <table>
     <thead><tr><th>Student ID</th><th>Phone Number</th></tr></thead>
 {% for s in students %}
-<tr><td>{{s.s_id}}</td><td>{{s.phone}}</td></tr>
+<tr><td class="text-left">{{s.s_id}}</td><td class="text-left">{{s.phone}}</td></tr>
 
 {% endfor %}
 <thead><tr><th>Total Registered Students:</th><th>{{count}}</th></tr>
 
 </table>
 
+</div>
 </div>
 </div>
 <!--start-copyright-->

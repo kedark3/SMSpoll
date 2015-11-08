@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>SMS Based Polling System</title>
+<link href="/static/login/css/style.css" rel='stylesheet' type='text/css' />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Flat Tab Listed Forms ,Login Forms,Sign up Forms,Registration Forms,News latter Forms,Elements"/>
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<link href="/static/login/css/bootstrap.css" rel="stylesheet">
+<!--webfonts-->
+<link href='//fonts.googleapis.com/css?family=Raleway:400,200,300,500,600,800,700,900' rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=Philosopher:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+<!--//webfonts-->
+<script type="text/javascript" src="/static/login/js/jquery.min.js"></script>
+<script src="/static/login/js/easyResponsiveTabs.js"></script>
+						<script type="text/javascript">
+							$(document).ready(function () {
+								$('#horizontalTab').easyResponsiveTabs({
+									type: 'default', //Types: default, vertical, accordion
+									width: 'auto', //auto or any width like 600px
+									fit: true,   // 100% fit in a container
+									closed: 'accordion', // Start closed if in accordion view
+									activate: function(event) { // Callback function if tab is switched
+										var $tab = $(this);
+										var $info = $('#tabInfo');
+										var $name = $('span', $info);
+
+										$name.text($tab.text());
+
+										$info.show();
+									}
+								});
+
+								$('#verticalTab').easyResponsiveTabs({
+									type: 'vertical',
+									width: 'auto',
+									fit: true
+								});
+							});
+</script>
+
+</head>
+<body><a href="/auth/logout"><input type="button" value="Logout"></a>
+	<h1>Add or Remove Classes</h1>
+<div class="infom">
+					<div id="verticalTab" class="resp-vtabs" style="display: block; width: 100%; margin: 0px;"><!-- start vertical Tabs-->
+						<ul class="resp-tabs-list">
+							<li class="resp-tab-item"><span><img src="/static/login/images/register.png" alt=""/> </span></li>
+
+						</ul>
+						<div class="resp-tabs-container">
+								<span class="resp-arrow"></span><i class="icon_2"></i>
+							<div class="new_posts resp-tab-content">
+								<div class="course-add">
+											<div class="contact-text2">
+												<form action="/auth/add-remove/add/" method="get">
+												    {% csrf_token %}
+												    <input type="text" required="" name="email" value="{{email}}"><br>
+												    <select name="cid">
+                                                    {% for c in courses%}
+                                                      <option value="{{c.id}}">{{c.c_id}}-{{c.course_name}}</option>
+                                                    {% endfor %}
+                                                     </select>
+													<input placeholder="Course Registration Number" type="number" min="0" required="" name="crn"><br>
+													<input type="submit" value="Remove" formaction="/auth/add-remove/remove/">
+													<input type="submit" value="Add" formaction="/auth/add-remove/add/">
+
+
+												</form>
+											</div>
+        	                   </div>
+
+                        </div>
+<!--start-copyright-->
+   	<div class="copy-right">
+		<p>&copy; 2015 SMS Based Polling System/ All Rights Reserved | Design by <a href="http://kedarkulkarni.in/">Kedar Kulkarni</a>,Gazal Chawla, Praveen Surenani</p>
+</div>
+	<!--//end-copyright-->
+</body>
+</html>

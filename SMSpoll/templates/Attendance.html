@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>SMS Based Polling System</title>
+<link href="/static/login/css/style.css" rel='stylesheet' type='text/css' />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Flat Tab Listed Forms ,Login Forms,Sign up Forms,Registration Forms,News latter Forms,Elements"/>
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<link href="/static/login/css/bootstrap.css" rel="stylesheet">
+<!--webfonts-->
+<link href='//fonts.googleapis.com/css?family=Raleway:400,200,300,500,600,800,700,900' rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=Philosopher:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+<!--//webfonts-->
+
+<script type="text/javascript" src="/static/login/js/jquery.min.js"></script>
+
+<script language="javascript" type="text/javascript">
+
+</script>
+
+
+</head>
+<body>
+
+<h1>Present Students</h1>
+<div class="infom">
+<h2>Please select those entries which are to be excluded from the final attendance file(possible to select multiple)</h2>
+
+<select multiple >
+    {% for n in numbers %}
+    <option> {{ n }}
+    {% endfor %}
+</select>
+</div>
+    {{ diff }}
+</body>
+</html>

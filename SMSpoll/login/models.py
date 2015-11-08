@@ -24,6 +24,8 @@ class InstCourse(models.Model):
     crn = models.IntegerField(primary_key=True)
     c_id= models.ForeignKey(Course)
     email = models.ForeignKey(InstReg)
+    class Meta:
+        unique_together = (("crn","c_id"))
 
 class StudReg(models.Model):
     def __str__(self):              # __unicode__ on Python 2

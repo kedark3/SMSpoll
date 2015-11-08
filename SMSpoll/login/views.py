@@ -10,6 +10,7 @@ import random,string
 from datetime import datetime
 from django.utils import timezone
 from dateutil import parser
+import csv
 #connecting to twilio account
 import os
 from urlparse import urlparse
@@ -48,34 +49,30 @@ def connect():
 
 
 def home(request):
-    #try:
-    mail=request.session['email2']
-    conn=connect()
-    cur=conn.cursor()
-    cur.execute("select i.crn,c.c_id,c.course_name from login_instcourse as i, login_course as c  where i.c_id_id=c.id and email_id='%s'"%mail)
-    results=[]
-    for row in cur.fetchall():
-        results.append(CourseList(row[0],row[1],row[2]))
-    conn.close()
-    code = read('/home/ssdiprojectfall2015/SMSpoll/templates/InstructorHome.html')
-    t= Template(code)
-    c = Context({'courses':results})
-    return HttpResponse(t.render(c))
+    try:
+        mail=request.session['email2']
+        conn=connect()
+        cur=conn.cursor()
+        cur.execute("select i.crn,c.c_id,c.course_name from login_instcourse as i, login_course as c  where i.c_id_id=c.id and email_id='%s'"%mail)
+        results=[]
+        for row in cur.fetchall():
+            results.append(CourseList(row[0],row[1],row[2]))
+        conn.close()
+        code = read('/home/ssdiprojectfall2015/SMSpoll/templates/InstructorHome.html')
+        t= Template(code)
+        c = Context({'courses':results})
+        return HttpResponse(t.render(c))
+    except Exception as e:
+        error='Please login first!'
+        code = read('/home/ssdiprojectfall2015/SMSpoll/templates/login.html')
+        t= Template(code)
+        c = Context({'error':error})
+        return HttpResponse(t.render(c))
 
 
-
-    '''messages = client.messages.list()
-    numbers=[]
-    for m in messages:
-	    if m.status == "received":
-		    numbers.append(m)'''
-
-    #except Exception as e:
-    #    error='Please login first!'
-    #    code = read('/home/ssdiprojectfall2015/SMSpoll/templates/login.html')
-    #    t= Template(code)
-    #    c = Context({'error':error})
-    #    return HttpResponse(t.render(c))
+def logout(request):
+    request.session['email2']=''
+    return HttpResponseRedirect("/auth/login")
 
 def login(request):
     global error
@@ -89,12 +86,9 @@ def login_check(request):
     mail= request.POST['email2']
     pswd = request.POST['pswd2']
     l=InstReg.objects.get(email=mail)
-    rememberMe=request.POST.getlist('checkbox')
+
     if l.password==pswd:
         request.session['email2']=mail
-        if rememberMe==1:
-            request.session.set_expiry(0)
-            return HttpResponseRedirect("http://www.google.com")
         return HttpResponseRedirect("/auth")
     else:
         code = read('/home/ssdiprojectfall2015/SMSpoll/templates/login.html')
@@ -191,7 +185,7 @@ def attendace_string(request):
     request.session['time1']= datetime.now().replace(microsecond=0)
     code = read('/home/ssdiprojectfall2015/SMSpoll/templates/AttendaceCounter.html')
     t= Template(code)
-    c = Context({'string':random_string})
+    c = Context({'string':random_string,'count':request.GET['count']})
     return HttpResponse(t.render(c))
 
 def show_attendance(request):
@@ -199,14 +193,43 @@ def show_attendance(request):
     messages = client.messages.list()
     numbers=[]
     for m in messages:
-	    if m.status == "received" and ((request.session['time2']-parser.parse(m.date_sent)).seconds)<=90:
-		    numbers.append(m)
-    code = read('/home/ssdiprojectfall2015/SMSpoll/templates/comingsoon.html')
+        #==================================Change or to and in statement below later====================================================================
+	    if m.status == "received" and ((request.session['time2']-parser.parse(m.date_sent)).seconds)<=90 and m.body==request.session['random_string']:
+		        numbers.append(m.from_)
+
+
+    numbers=list(set(numbers)) # remove duplicates
+    code = read('/home/ssdiprojectfall2015/SMSpoll/templates/Attendance.html')
     t= Template(code)
     c = Context({'numbers':numbers})
     return HttpResponse(t.render(c))
 
-    #,'diff':str((request.session['time2']-parser.parse(messages[0].date_sent)).seconds)+'.....'+str(messages[0].date_sent)+'...'+str(request.session['time2']) })
-    '''naive=parser.parse(messages[0].date_sent).replace(tzinfo=None)
-    return HttpResponse(request.session['random_string']+str((request.session['time2']-parser.parse(messages[0].date_sent)).seconds)
-    +str(request.session['time2'])+str(parser.parse(messages[0].date_sent)))'''
+
+#View for Add Classes
+def addrem(request):
+    courses=Course.objects.all()
+    code = read('/home/ssdiprojectfall2015/SMSpoll/templates/AddRemove.html')
+    t= Template(code)
+    c = Context({'courses':courses,'email':request.session['email2']})
+    return HttpResponse(t.render(c))
+
+def add_course(request):
+    cid=request.GET['cid']
+    crn=request.GET['crn']
+    email=request.GET['email']
+    email2=request.session['email2']
+    if email==email2:
+        conn=connect()
+        cur=conn.cursor()
+        cur.execute("Insert into login_instcourse values (" +crn+","+cid+",'"+email+"')")
+        conn.commit()
+        conn.close()
+    return HttpResponseRedirect("http://ssdiprojectfall2015.pythonanywhere.com/auth")
+def remove_course(request):
+    CRN=request.GET['crn']
+    email=request.GET['email']
+    email2=request.session['email2']
+
+    if email==email2:
+        InstCourse.objects.filter(crn=CRN).delete()
+    return HttpResponseRedirect("http://ssdiprojectfall2015.pythonanywhere.com/auth")

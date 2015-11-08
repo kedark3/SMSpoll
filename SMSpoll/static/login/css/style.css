@@ -88,6 +88,7 @@ body h2 {
 	font-family: 'Raleway', sans-serif;
     text-align: center;
     font-size: 1.7em;
+    color:black;
 }
 .contact-text4{
     text-align: center;
@@ -937,6 +938,8 @@ h2.resp-tab-active {
 	}
 }
 
+
+/*
 .datagrid table { border-collapse: collapse;
 text-align: left; width: 100%; }
 .datagrid {font: normal 12px/150% Georgia, Times New Roman, Times,
