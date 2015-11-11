@@ -232,7 +232,7 @@ def add_course(request):
     if email==email2:
         conn=connect()
         cur=conn.cursor()
-        cur.execute("Insert into login_instcourse values (" +crn+","+cid+",'"+email+"')")
+        cur.execute("Insert into login_instcourse values ("+crn+","+cid+",'"+email+"')")
         conn.commit()
         conn.close()
     return HttpResponseRedirect("http://ssdiprojectfall2015.pythonanywhere.com/auth")

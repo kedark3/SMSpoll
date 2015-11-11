@@ -71,10 +71,6 @@ class PollsViewsTestCase(TestCase):
         response=c.post('http://ssdiprojectfall2015.pythonanywhere.com/auth/show-attendance/')
         self.assertEqual(response.status_code, 200)
 
-    def test_show_attendance(self):
-        c = Client(HTTP_USER_AGENT='Mozilla/5.0')
-        response=c.post('http://ssdiprojectfall2015.pythonanywhere.com/auth/show-attendance/')
-        self.assertEqual(response.status_code, 200)
 
     def test_download_attendance(self):
         c = Client(HTTP_USER_AGENT='Mozilla/5.0')
