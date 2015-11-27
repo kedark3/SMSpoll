@@ -1,0 +1,29 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Stats</title>
+
+<link href="/static/login/css/style.css" rel="stylesheet" type="text/css" />
+<link href="/static/login/css/bootstrap.css" rel="stylesheet">
+
+<!--webfonts-->
+<link href="//fonts.googleapis.com/css?family=Raleway:400,200,300,500,600,800,700,900" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=Philosopher:400,400italic,700,700italic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet" type="text/css">
+<!--//webfonts-->
+</head>
+<body>
+            <select multiple name="numbers">
+                {% for n in numbers %}
+                <option value="{{n}}"> {{ n }}
+                {% endfor %}
+            </select>
+            <h3>% of students answering A:{{countA}}</h3>
+            <h3>% of students answering B:{{countB}}</h3>
+            <h3>% of students answering C:{{countC}}</h3>
+            <h3>% of students answering D:{{countD}}</h3>
+            <h3>Total students answered:{{count}}</h3>
+            <h3>NOTE: You will be redirected to Course Details page when All questions are over.</h3>
+            <h3><a  href="/auth/conduct/?crn={{crn}}&qid={{qid}}&test_id={{test_id}}">Next</a></h3>
+        </body>
+</html>

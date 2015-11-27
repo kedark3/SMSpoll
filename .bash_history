@@ -136,3 +136,13 @@ pip install twilio --upgrade
 python
 mkvirtualenv --python=/usr/bin/python2.7 newtwilio
 pip install twilio
+git add -A
+git commit -m "For release 2"
+git push -u origin master
+select *from createTest
+select * from CreateTest
+select *from CreateTest
+python manage.py syncdb
+cd SMSpoll
+python manage.py syncdb
+python

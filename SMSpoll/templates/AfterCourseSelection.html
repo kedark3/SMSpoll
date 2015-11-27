@@ -51,24 +51,40 @@
 </head>
 <body>
 
-    <div class="tile_div">
+
     <form method="get" action="/auth/attendance-string/">
-    <h4>Please Enter Timer Upper limit (in Sec) for Attendance:</h4><input type="number" min="0" name="count" required/>
+    <h3>Please Enter Timer Upper limit (in Sec) for Attendance:</h3><input type="number" min="1" placeholder="Seconds" name="count" required/>
     <input type="submit" value ="Get Attendance"/></form>
 
-    <a href="#">Create Test</a>
-    <a href="#" class="last">Conduct Test</a>
+    <form method="get" action="/auth/create-test/">
+    <input type="hidden" value="{{crn}}" name="crn"/>
+    <h3>Please Enter Name for the Test:</h3><input type="text" placeholder="Test Name" name="test_id" required/>
+    <input type="hidden" value="1" name="qid"/>
+    <input type="submit" value ="Create Test"/></form>
+
+    <form action="/auth/conduct/" method="get">
+	{% csrf_token %}
+    <input type="hidden" value="{{crn}}" name="crn"/>
+    <input type="hidden" value="1" name="qid"/>
+	<select name="test_id">
+        {% for t in tests%}
+
+        <option value="{{t.test_id}}">{{t.test_id}}</option>
+        {% endfor %}
+    </select>
+		<input type="submit" value="Begin Test" formaction="/auth/conduct/">
+	</form>
 
     <!--<a href="#" class="last">View Registered Students</a>-->
-    <div class="clear"></div>
-</div>
+
+<a href="/auth/"><input type="button" value="Back"></a><a href="/auth/logout"><input type="button" value="Logout"/></a>
 <div class="infom">
 <div class="table-title">
 <h1>Course Description</h1>
 </div>
 <div>
 <table>
-<thead><tr><th>CRN</th><th>Course Name</th></tr></thead>
+<thead><tr><th>Course ID</th><th>Course Name</th></tr></thead>
 {% for c in course %}
 <tr><td class="text-left">{{c.c_id}}</td><td class="text-left"> {{c.course_name}}</td></tr>
 {% endfor %}

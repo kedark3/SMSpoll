@@ -14,7 +14,12 @@ urlpatterns = patterns('',
     url(r'^add-remove/add', 'SMSpoll.login.views.add_course'),
     url(r'^add-remove/remove', 'SMSpoll.login.views.remove_course'),
     url(r'^add-remove/', 'SMSpoll.login.views.addrem'),
+    url(r'^addQ/', 'SMSpoll.login.views.add_question'),
+    url(r'^create-test/', 'SMSpoll.login.views.create_test'),
     url(r'^student-register/', 'SMSpoll.login.views.student_reg'),
+    url(r'^conduct/', 'SMSpoll.login.views.conduct_test'),
+    url(r'^show-stats/', 'SMSpoll.login.views.show_stats'),
     url(r'^show-attendance/', 'SMSpoll.login.views.show_attendance'),
     url(r'^download-attendance/', 'SMSpoll.login.views.download_attendance'),
+
 )

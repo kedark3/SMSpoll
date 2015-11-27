@@ -9,6 +9,12 @@ body {
   font-weight: 400;
   text-rendering: optimizeLegibility;
 }
+body h3 {
+	color: #fff;
+
+	font-size:0.9em;
+	font-family: 'Philosopher', sans-serif;
+}
 
 
 a.button {

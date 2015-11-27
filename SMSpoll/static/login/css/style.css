@@ -54,6 +54,12 @@ body h2 {
 	font-size:2.9em;
 	font-family: 'Philosopher', sans-serif;
 }
+body h3 {
+	color: #fff;
+	text-align: center;
+	font-size:2.9em;
+	font-family: 'Philosopher', sans-serif;
+}
 
 .content,.content1.content2,.content3,.content4 {
 	width: 33.33%;
