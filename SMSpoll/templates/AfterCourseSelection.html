@@ -75,6 +75,18 @@
 		<input type="submit" value="Begin Test" formaction="/auth/conduct/">
 	</form>
 
+	<form action="/auth/download/" method="get">
+	{% csrf_token %}
+	<input type="hidden" value="{{crn}}" name="crn"/>
+	<select name="test_id">
+        {% for t in tests%}
+
+        <option value="{{t.test_id}}">{{t.test_id}}</option>
+        {% endfor %}
+    </select>
+		<input type="submit" value="Download result" />
+	</form>
+
     <!--<a href="#" class="last">View Registered Students</a>-->
 
 <a href="/auth/"><input type="button" value="Back"></a><a href="/auth/logout"><input type="button" value="Logout"/></a>

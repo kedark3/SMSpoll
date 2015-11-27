@@ -3,6 +3,7 @@ from __future__ import division
 from django.http import HttpResponse,HttpResponseRedirect
 from django.template import Template, Context
 from file_read import read
+from csv_write import csv_write
 import MySQLdb as msdb
 from models import InstReg,StudReg,InstCourse,Course, ClassTest
 from twilio.rest import TwilioRestClient
@@ -15,7 +16,8 @@ import csv
 #connecting to twilio account
 import os
 from urlparse import urlparse
-
+from django.core.urlresolvers import resolve
+from django.conf import settings
 
 from twilio.rest.resources import Connection
 from twilio.rest.resources.connection import PROXY_TYPE_HTTP
@@ -330,6 +332,7 @@ def conduct_test(request):
 
         return HttpResponse(t.render(c))
     except Exception:
+
         cur.execute("select c_id from login_course where id=(select c_id_id from login_instcourse where crn="+request.GET['crn']+")")
         cid=cur.fetchone()[0]
         conn.close()
@@ -363,6 +366,8 @@ def show_stats(request):
 
     numbers=list(set(numbers))
 
+    csv_write(numbers,str(request.GET['qid']),str(request.session['test_id']),str(request.GET['crn'])) #Writing to csv file
+
     count=len(A)+len(B)+len(C)+len(D)
     totalStudents= []
     totalStudents.append(A)
@@ -382,3 +387,16 @@ def show_stats(request):
     c = Context({'numbers':numbers,'countA':percentA,'countB':percentB,'countC':percentC,'countD':percentD,'count':total,
     'crn':request.GET['crn'],'qid':int(request.GET['qid'])+1,'test_id':request.session['test_id']})
     return HttpResponse(t.render(c))
+
+#Download results view===================================
+def download(request):
+    try:
+        os.stat(settings.MEDIA_ROOT+'/result/result'+request.GET['test_id']+request.GET['crn']+'.csv')
+        return HttpResponseRedirect('/media/result/result'+request.GET['test_id']+request.GET['crn']+'.csv')
+    except OSError:
+        conn=connect()
+        cur=conn.cursor()
+        cur.execute("select c_id from login_course where id=(select c_id_id from login_instcourse where crn="+request.GET['crn']+")")
+        cid=cur.fetchone()[0]
+        conn.close()
+        return HttpResponseRedirect("/auth/after-course/?crn="+request.GET['crn']+"&c-id="+str(cid))

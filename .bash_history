@@ -146,3 +146,11 @@ python manage.py syncdb
 cd SMSpoll
 python manage.py syncdb
 python
+ssh -L 8002:localhost:8001  aerialist@ssh.pythonanywhere.com
+ssh -L 8002:localhost:8001 ssdiprojectfall2015@ssh.pythonanywhere.com
+python
+git add -A
+git commit -m "Before any mess happens" 
+git push -u origin master
+ssh
+ssh ssdiprojectfall2015.pythonanywhere.com

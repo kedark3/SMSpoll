@@ -1,0 +1,6 @@
+(defun myuni(A B)
+(cond
+((null A) B)
+((member (first A) B) (myuni (rest A) B))
+((cons (first A)  (myuni (rest A) B )))))
+
