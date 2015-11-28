@@ -377,6 +377,10 @@ def show_stats(request):
     totalStudents= [item for sublist in totalStudents for item in sublist]
     total= len(list(set(totalStudents)))
 
+    percentA=0
+    percentB=0
+    percentC=0
+    percentD=0
     if count>0:
         percentA=(len(A)*100/count)
         percentB=(len(B)*100/count)

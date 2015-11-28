@@ -35,8 +35,8 @@
 								<div class="contact-form">
 											<div class="contact-text1"><h2>Members Login Form</h2>
 												<form id="register_form" action="/auth/login-check/" method="post">
-													<input name="email2" type="text" class="user" value="Your Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Your Email';}">
-													<input name="pswd2"  type="password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}">
+													<input name="email2" type="text" class="user" placeholder="Your Email"  required>
+													<input name="pswd2"  type="password" placeholder="Password" required>
 												{{ error }}
 													<div class="submit">
 											            <input type="submit" value="Login" formaction="/auth/login-check/">

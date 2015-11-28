@@ -19,4 +19,4 @@ def csv_write(l,qid,test_id,crn):
             spamwriter.writerow(["Response for Q."+qid])
             for item in l:
                 spamwriter.writerow([item])
-    spamwriter.close()
+
