@@ -131,8 +131,8 @@ class PollsViewsTestCase(unittest.TestCase):
         c = Client(HTTP_USER_AGENT='Mozilla/5.0')
         response = c.get('http://ssdiprojectfall2015.pythonanywhere.com/auth/conduct/',{'qid':10, 'test_id':'Test1', 'crn':2353})
         self.assertEqual(response.status_code, 302)'''
-
-    '''def test_add_remove(self):
+'''
+    def test_add_remove(self):
         instance = InstReg.objects.create(fname="Kedar",lname="Kulkarni",email="kedar.kulkarni0@gmail.com",password="secret")
         c = Client(HTTP_USER_AGENT='Mozilla/5.0')
         response=c.post('http://ssdiprojectfall2015.pythonanywhere.com/auth/login-check/', {'email2':instance.email, 'pswd2': instance.password})
@@ -143,7 +143,7 @@ class PollsViewsTestCase(unittest.TestCase):
         self.assertEqual(response.status_code, 302)
 '''
 
-    '''def test_create_test_unsuccessful(self):        #fails when crn is not found!
+'''def test_create_test_unsuccessful(self):        #fails when crn is not found!
         c = Client(HTTP_USER_AGENT='Mozilla/5.0')
         response = c.get('http://ssdiprojectfall2015.pythonanywhere.com/auth/create-test/',{'test_id':'Tes','crn':253,'cid':6112, 'qid':1})
         self.assertEqual(response.status_code, 200)
