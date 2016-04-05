@@ -154,3 +154,7 @@ git commit -m "Before any mess happens"
 git push -u origin master
 ssh
 ssh ssdiprojectfall2015.pythonanywhere.com
+git add -A
+git commit -m "Final Commit"
+git push -u origin-master
+git push -u origin master

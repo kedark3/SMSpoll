@@ -23,6 +23,11 @@ from twilio.rest.resources import Connection
 from twilio.rest.resources.connection import PROXY_TYPE_HTTP
 from twilio import twiml
 from django.views.decorators.csrf import csrf_exempt
+from django import forms
+
+#for ajax trial
+from django.template import RequestContext
+
 
 proxy_url = os.environ.get("http_proxy")
 host, port = urlparse(proxy_url).netloc.split(":")
@@ -31,6 +36,8 @@ ACCOUNT_SID = "AC5d22427eb1a348f92d96e38ac7f77b6f"
 AUTH_TOKEN = "de92cc787190562f371eebf5971d0a2a"
 client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
 
+class NameForm(forms.Form):
+    your_name = forms.CharField(label='Your name', max_length=100)
 
 class CourseList(object):
     def __init__(self,crn,c_id,c_name):
@@ -69,6 +76,7 @@ def home(request):
         conn.close()
         code = read('/home/ssdiprojectfall2015/SMSpoll/templates/InstructorHome.html')
         t= Template(code)
+        #form = NameForm()
         c = Context({'courses':results})
         return HttpResponse(t.render(c))
     except Exception as e:
@@ -165,9 +173,9 @@ def student_reg(request):
         s= StudReg(s_id=sid,phone_no=request.POST['From'],crn=inst)
         s.save()
 
-        #r.message('Registered successfully!')
+        r.message('Registered successfully!')
     except Exception as e:
-        #r.message('Registration error, format should be your 800 ID and CRN. E.g. 800891239 25145.')
+        #r.message('Registration error, format should be your 800 ID and CRN. E.g. 800891239 25145. Or already registered!')
         sid=0
     return HttpResponse(r.toxml(), content_type='text/xml')
 
@@ -397,10 +405,20 @@ def download(request):
     try:
         os.stat(settings.MEDIA_ROOT+'/result/result'+request.GET['test_id']+request.GET['crn']+'.csv')
         return HttpResponseRedirect('/media/result/result'+request.GET['test_id']+request.GET['crn']+'.csv')
-    except OSError:
+    except Exception:
         conn=connect()
         cur=conn.cursor()
         cur.execute("select c_id from login_course where id=(select c_id_id from login_instcourse where crn="+request.GET['crn']+")")
         cid=cur.fetchone()[0]
         conn.close()
         return HttpResponseRedirect("/auth/after-course/?crn="+request.GET['crn']+"&c-id="+str(cid))
+
+def like_category(request):
+    context = RequestContext(request)
+
+    likes = "I like it"+request.GET['category_id']
+    code = read('/home/ssdiprojectfall2015/SMSpoll/templates/login.html')
+    t= Template(code)
+    context =Context({'likes':likes})
+    return HttpResponse(likes)
+

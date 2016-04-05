@@ -15,10 +15,30 @@
 <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
 <!--//webfonts-->
 <script type="text/javascript" src="/static/login/js/jquery.min.js"></script>
+<!-- Uncomment this part for AJAX
+<script>
+$(document).ready(function() {
+    $('#likes').click(function(){
+    var catid;
+    var list = $("ul");
+    catid = $("#number").val();
+     $.get('/auth/like_category/', {category_id: catid}, function(data){
+               list.append("<li><h1>"+data+"</h1></li>");
 
+           });
+    });
+
+});
+</script>-->
 
 </head>
 <body>
+
+    <!-- Uncomment this part for AJAX
+    <input id="number" type="number"/>
+    <button id="likes" data-catid="1" class="btn btn-mini btn-primary" type="button">Like</button>
+    <div id="like_count"><h2>{{ likes }}</h2></div>
+	<ul></ul>-->
 	<h1>Welcome</h1>
 <div class="infom">
 					<div id="verticalTab" class="resp-vtabs" style="display: block; width: 100%; margin: 0px;"><!-- start vertical Tabs-->
@@ -54,7 +74,7 @@
 							<span class="resp-arrow"></span><i class="icon_2"></i>
 							<div class="new_posts resp-tab-content">
 								<div class="contact-form1">
-											<div class="contact-text2"><h3>Register</h3>
+											<div class="contact-text2"><h3 style="color:Black;">Register</h3>
 												<form action="/auth/signup/" method="post">
 												    {% csrf_token %}
 
@@ -90,7 +110,7 @@
 							<span class="resp-arrow"></span><i class="icon_4"></i>
 							<div class="new_posts resp-tab-content">
 								<div class="contact-form3">
-											<div class="contact-text4"><h3>Recover Password</h3>
+											<div class="contact-text4"><h3 style="color:Black;">Recover Password</h3>
 												<form method="post" action="/auth/recoverpswd/">
 													<input type="text" class="user" value="Your Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Your Name';}" name="pname">
 													<input type="text" class="email Address" value="Email Address" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email Address';}" name="pmail">
@@ -105,7 +125,7 @@
 							  <span class="resp-arrow"></span><i class="icon_4"></i>
 							  <div class="new_posts resp-tab-content">
 								<div class="contact-form4">
-											<div class="contact-text5"><h3>Contact Us</h3>
+											<div class="contact-text5"><h3 style="color:Black;" >Contact Us</h3>
 												<form action="/auth/contact-us/" method="post">
 													<input type="text" name="cname" class="user" value="Your Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Your Name';}">
 													<input type="text" name="cmail" class="email Address" value="Email Address" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email Address';}">
